@@ -59,21 +59,30 @@ Unported License (http://creativecommons.org/licenses/by-nc/3.0/).
 			
 		search : function(query, callback, max){
 			return this._request('get', 'search', {
-				params : ['max='+(max || 12), 'query='+encodeURIComponent(query)],
+				params : {max : (max || 12), query : encodeURIComponent(query)},
 				complete : callback
 				});
 			},
 			
 		view : function(view, callback, max){
 			return this._request('get', 'view', {
-				params:['max='+(max || 12), 'view='+view],
+				params : {max : (max || 12), view : view},
 				complete : callback
 				});
 			},
 			
 		entry : function(which, callback, what){
+			var params = {data : (what || ['display_name','journal_title','entry_id','date','title','image']).join(',')};
+			if (typeof which == 'number'){
+				params.entry_id = which;
+				}
+			else {
+				params.entry_date = 'latest';
+				params.display_name = which;
+				}
+
 			return this._request('get', 'entry', {
-				params:[(typeof which == 'number' ? 'entry_id=' : 'entry_date=latest&display_name=')+which, 'data='+((what || ['display_name','journal_title','entry_id','date','title','image']).join(','))],
+				params : params,
 				complete : function(data){
 					callback(data[0]);
 					}
@@ -83,20 +92,30 @@ Unported License (http://creativecommons.org/licenses/by-nc/3.0/).
 		_request : function(method, resource, opt){
 		
 			var opt = opt || {},
-				url = this.conf.baseURL+method+'/'+resource+'/?'+this._getDefaultParams().concat(opt.params || []).join('&');
+				url = this.conf.baseURL+method+'/'+resource+'/?'+this._getParams(opt.params || {});
 			
 			me._sendRequest(this._requestID++, url, opt);
 			},
 			
-		_getDefaultParams : function(){
+		_getParams : function(params){
 			
-			var params = ['api_key='+this.key, 'version='+this.conf.version, 'nohttperror=1',  'format=JSON'];
+			params.api_key = this.key;
+			params.version = this.conf.version;
+			params.format = 'JSON';
 				
 			if (this.test){
-				params.push('test=1');
+				defaults.test = 1;
+				}
+				
+			var qs = [],
+				k;
+			for (k in params){
+				if (params.hasOwnProperty(k)){
+					qs.push(k+'='+parmas[k]);
+					}
 				}
 			
-			return params;
+			return qs.join('&');
 			}
 		};
 		

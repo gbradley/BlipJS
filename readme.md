@@ -32,7 +32,7 @@ An easy way to get stuff from the Blipfoto API within a browser.
 ##Do a custom request
 
 	blip.get('somecustomresource',{
-		params:['param1=value1', 'param2=value2'],
+		params:{param1 : 'value1', param2 : 'value2'},
 		complete:function(data){
 			// yay :)
 			}
