@@ -111,7 +111,7 @@ Unported License (http://creativecommons.org/licenses/by-nc/3.0/).
 				k;
 			for (k in params){
 				if (params.hasOwnProperty(k)){
-					qs.push(k+'='+parmas[k]);
+					qs.push(k+'='+params[k]);
 					}
 				}
 			
