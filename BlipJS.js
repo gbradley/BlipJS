@@ -29,7 +29,7 @@ Unported License (http://creativecommons.org/licenses/by-nc/3.0/).
 			id = name+requestID;
 			
 		me._requestCache[id] = function(json){
-			delScript = D.getElementById(id);
+			var delScript = D.getElementById(id);
 			if (delScript){
 				delScript.parentNode.removeChild(delScript);
 				}
@@ -59,14 +59,14 @@ Unported License (http://creativecommons.org/licenses/by-nc/3.0/).
 			
 		search : function(query, callback, max){
 			return this._request('get', 'search', {
-				params : {max : (max || 12), query : encodeURIComponent(query)},
+				params : {max : max || 12, query : encodeURIComponent(query)},
 				complete : callback
 				});
 			},
 			
 		view : function(view, callback, max){
 			return this._request('get', 'view', {
-				params : {max : (max || 12), view : view},
+				params : {max : max || 12, view : view},
 				complete : callback
 				});
 			},
