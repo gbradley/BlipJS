@@ -11,8 +11,8 @@ An easy way to get stuff from the Blipfoto API within a browser.
 
 	blip.view('upload',function(entries){
 		console.log(entries.length);			//=> 12 (the default)
-	console.log(entries[0].title);				//=> 'the entry title'
-	console.log(entries[0].permalink);			//=> 'http://www.blipfoto.com/entry/123456'
+		console.log(entries[0].title);				//=> 'the entry title'
+		console.log(entries[0].permalink);			//=> 'http://www.blipfoto.com/entry/123456'
 		});
 	
 
@@ -25,7 +25,7 @@ An easy way to get stuff from the Blipfoto API within a browser.
 ## Get info about a specific entry
 
 	blip.entry(123456,function(entry){
-		console.log(entry.title);					//=> 12 'the entry title'
+		console.log(entry.title);					//=> 'the entry title'
 		});
 	
 
